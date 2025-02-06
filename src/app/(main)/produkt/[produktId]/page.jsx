@@ -43,7 +43,6 @@ export default async function Produkt({ params }) {
 
 
 
-
 /* "use client"
 
 import { useParams } from "next/navigation"
