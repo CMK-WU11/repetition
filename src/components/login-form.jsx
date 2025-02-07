@@ -18,11 +18,12 @@ export default function LoginForm() {
 						Email
 					</span>
 					<input
+						defaultValue={formState?.formData?.identifier}
 						type="email"
 						name="identifier"
 						className="border" />
 				</label>
-				<span></span>
+				<span className="block text-red-600">{formState?.errors?.identifier?._errors[0]}</span>
 			</div>
 			<div>
 				<label>
@@ -30,13 +31,14 @@ export default function LoginForm() {
 						Adgangskode
 					</span>
 					<input
+						defaultValue={formState?.formData?.password}
 						type="password"
 						name="password"
 						className="border" />
 				</label>
-				<span></span>
+				<span className="block text-red-600">{formState?.errors?.password?._errors[0]}</span>
 			</div>
-			<span className="text-red-700">{formState?.error}</span>
+			<span className="text-red-700">{/* formState?.error */}</span>
 			<button disabled={isPending} type="submit" className="p-2 bg-blue-600 disabled:bg-gray-600 text-white rounded-xl">
 				{isPending ? "Logger ind..." : "Log ind"}
 			</button>
