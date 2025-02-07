@@ -1,6 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 import { z } from "zod"
 
 export default async function Login(prevState, formData) {
@@ -38,13 +39,24 @@ export default async function Login(prevState, formData) {
 				password
 			})
 		})
+
+		if (response.status === 400) { // Bad request
+			return {
+				formData: {
+					identifier,
+					password
+				},
+				error: "Forkert email eller password"
+			}
+		}
+
 		const data = await response.json()
 
 		const cookieStore = await cookies()
 		cookieStore.set("repe_token", data.jwt, { maxAge: 60 * 60 * 24 })
 		cookieStore.set("repe_uid", data.user.id, { maxAge: 60 * 60 * 24 })
-
 	} catch (error) {
 		throw new Error(error)
 	}
+	redirect("/")
 }
